@@ -1,0 +1,74 @@
+MAG2305 version: UnetHd_Public_2023.10.18
+
+c_gn_test
+Unet model loaded
+
+Initialize an mmModel:
+
+  Cuda:0 available. Spin evolution using cuda:0.
+
+  # Cells  : 8388608
+  # Matters: 1
+  Ms check : 1st 1000.000, last 1000.000   [emu/cc]
+  Ax check : 1st 5.00e-07, last 5.00e-07   [erg/cm]
+  Ku check : 1st 0.00e+00, last 0.00e+00   [erg/cc]
+
+  Average magnetization  :   1000.00  [emu/cc]
+  Maximal anisotropy Hk  : 0.000e+00  [Oe]    
+  Maximal Heisenberg Hx  : 1.111e+04  [Oe]    
+  Maximal effective Heff : 7.923e+04  [Oe]
+  
+Creating 2 layer models 
+
+Spin state initialized according to input.
+
+spin shape torch.Size([2048, 2048, 2, 3])
+||Unt_size: 2048 || Spin calc speed: 1.3e+00 s || Hd calc speed: 1.1e+00 s||
+MAG2305 version: UnetHd_Public_2023.10.18
+
+
+Initialize an mmModel:
+
+  Cuda:0 available. Spin evolution using cuda:0.
+
+  # Cells  : 8388608
+  # Matters: 1
+  Ms check : 1st 1000.000, last 1000.000   [emu/cc]
+  Ax check : 1st 5.00e-07, last 5.00e-07   [erg/cm]
+  Ku check : 1st 0.00e+00, last 0.00e+00   [erg/cc]
+
+  Average magnetization  :   1000.00  [emu/cc]
+  Maximal anisotropy Hk  : 0.000e+00  [Oe]    
+  Maximal Heisenberg Hx  : 1.111e+04  [Oe]    
+  Maximal effective Heff : 7.923e+04  [Oe]
+  
+Creating 2 layer models 
+
+Spin state initialized according to input.
+
+spin shape torch.Size([2048, 2048, 2, 3])
+Demag Matrix SumTest:
+  [ 2.62132e-01 -1.71396e-01 -9.16745e-02]
+  [-1.71396e-01  2.62132e-01 -9.16745e-02]
+  [-9.16745e-02 -9.16745e-02  4.75736e-01]
+  trace = 1.00000
+
+Time cost: 1629.836087 s for getting demag matrix 
+
+Traceback (most recent call last):
+  File "mm_speed.py", line 70, in <module>
+    error_mm = film1.SpinLLG_RK4()
+  File "/data/home/caiyq/NeuralMAG/libs/MAG2305.py", line 1184, in SpinLLG_RK4
+    DSpin = self.GetDSpin_LLG(Hext=Hext, tau=tau, damping=damping)
+  File "/data/home/caiyq/NeuralMAG/libs/MAG2305.py", line 1085, in GetDSpin_LLG
+    self.GetHeff()
+  File "/data/home/caiyq/NeuralMAG/libs/MAG2305.py", line 934, in GetHeff_intrinsic
+    self.Demag()
+  File "/data/home/caiyq/NeuralMAG/libs/MAG2305.py", line 843, in DemagField_FFT
+    H = torch.fft.irfftn( FH, dim=(1,2,3) )
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.12 GiB (GPU 0; 39.44 GiB total capacity; 8.29 GiB already allocated; 411.94 MiB free; 8.38 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+
+ +---------------------------Results Summary-----------------------------+
+||Unt_size: 2048 || Spin calc speed: 1.3e+00 s || Hd calc speed: 1.1e+00 s||
+
