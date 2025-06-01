@@ -2,7 +2,7 @@
 
 
 # Temporarily set PYTHONPATH to include the top-level directory
-export PYTHONPATH=$(dirname $(dirname $(dirname $(pwd)))):$PYTHONPATH
+export PYTHONPATH=$(dirname $(dirname $(pwd))):$PYTHONPATH
 
 gpu=0
 # 1

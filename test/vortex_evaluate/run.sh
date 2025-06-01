@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Temporarily set PYTHONPATH to include the top-level directory
-export PYTHONPATH=$(dirname $(dirname $(dirname $(pwd)))):$PYTHONPATH
+export PYTHONPATH=$(dirname $(dirname $(pwd))):$PYTHONPATH
 
 for size in 32 64 128 256;do
     for experiment in "square" "random_material" "random_shape"; do
