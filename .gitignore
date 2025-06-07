@@ -2,4 +2,6 @@ libs/__pycache__/*
 test/speed_evaluate/log/
 test/speed_evaluate/speed_*
 test/speed_evaluate/libs/__pycache__/
-
+*.log
+*.nsys-rep
+log_*
