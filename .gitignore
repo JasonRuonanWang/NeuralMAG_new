@@ -3,3 +3,4 @@ test/speed_evaluate/log/
 *.log
 *.nsys-rep
 log_*
+.DS_Store
