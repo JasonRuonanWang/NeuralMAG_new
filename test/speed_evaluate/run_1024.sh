@@ -3,7 +3,7 @@
 # Temporarily set PYTHONPATH to include the top-level directory
 export PYTHONPATH=$(dirname $(dirname $(pwd))):$PYTHONPATH
 
-for width in 32 64; do
+for width in 64 128 256 512 1024 2048 4096 8192; do
 
   # Define the log file path
 
@@ -14,9 +14,9 @@ for width in 32 64; do
 
   # Run the Python scripts and append output to the log file
   {
-    python unet_speed.py --gpu 0 --w $width --layers 2 --trt False
+    python unet_speed.py --gpu 1 --w $width --layers 2 --trt False
     # python unet_speed.py --gpu 0 --w $width --layers 2 --trt True
-    python mm_speed.py --gpu 0 --w $width --layers 2
+    python mm_speed.py --gpu 1 --w $width --layers 2
   } &>>"$LOG_FILE"
 
   # Print the contents of the LOG_FILE
@@ -39,4 +39,3 @@ for width in 32 64; do
     echo -e "$MAG_line"
   } >>"$LOG_FILE"
 done
-
