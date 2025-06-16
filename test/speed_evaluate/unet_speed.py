@@ -62,7 +62,7 @@ if __name__ == '__main__':
     parser.add_argument('--Hext_vec',   type=Culist, default=(1,0,0),   help='external field vector (default:(1,0,0))')
 
     parser.add_argument('--dtime',      type=float,  default=1.0e-13,   help='real time step (default: 1.0e-13)')
-    parser.add_argument('--n_loop',     type=int,    default=10,       help='loop number (default: 100)')
+    parser.add_argument('--n_loop',     type=int,    default=100,       help='loop number (default: 100)')
     args = parser.parse_args()
     
     device = torch.device("cuda:{}".format(args.gpu))
