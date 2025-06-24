@@ -105,4 +105,4 @@ class UNet(nn.Module):
         up_4 = self.up_4(torch.cat([up_3, s2], dim=1))
         out  = self.last_Conv(torch.cat([up_4, s1], dim=1))
 
-        return torch.where(out >= 0, torch.exp(out)-1, -torch.exp(-out)+1)
+        return out

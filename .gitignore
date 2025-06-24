@@ -1,2 +1,5 @@
 libs/__pycache__/*
 test/speed_evaluate/log/
+test/speed_evaluate/speed_*
+test/speed_evaluate/libs/__pycache__/
+

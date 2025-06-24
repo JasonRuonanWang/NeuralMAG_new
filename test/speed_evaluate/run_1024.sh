@@ -1,9 +1,18 @@
 #!/bin/bash
+#SBATCH -N 1 ### 使用的节点数目
+#SBATCH -n 10 ### 一个节点内部的20个核
+#SBATCH --gres=gpu:5 ### 使用 2 张 gpu 卡
+#SBATCH --nodelist=gpuh202 ### 使用 gpu001 节点
+#SBATCH --partition=h20 ### PARTITION 名称，可通过 sinfo 查询
+#SBATCH --job-name=test ### 提交的任务名称
+#SBATCH --output=./log/test_4090.txt ### 输出文件
+#SBATCH --error=./log/test_4090.txt ### 错误日志文件
+#SBATCH -A hmt03
 
 # Temporarily set PYTHONPATH to include the top-level directory
 export PYTHONPATH=$(dirname $(dirname $(pwd))):$PYTHONPATH
 
-for width in 32 64 128 256 512 1024 2048;do
+for width in 1024;do
 
     # Define the log file path
 

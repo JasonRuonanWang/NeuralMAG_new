@@ -47,7 +47,7 @@ def initialize_models(args, device):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Unet speed test')
     parser.add_argument('--gpu',        type=int,   default=0,         help='GPU ID (default: 0)')
-    parser.add_argument('--krn',        type=int,   default=16,        help='unet first layer kernels (default: 16)')
+    parser.add_argument('--krn',        type=int,   default=48,        help='unet first layer kernels (default: 16)')
     parser.add_argument('--trt',        type=str,   default='False',   help='unet with tensorRT (default: False)')
 
     parser.add_argument('--w',          type=int,    default=32,        help='MAG model size (default: 32)')
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         end_time = time.time()
         hd_calc_times[i] = end_time - start_time
 
-    Hd_speed = torch.mean(hd_calc_times[10:]).item()*4.0
+    Hd_speed = torch.mean(hd_calc_times[10:]).item()
 
     if args.trt=='True':
         print(f'||Unt_trt:  {args.w} || Spin calc speed: {Spin_speed:.1e} s || Hd calc speed: {Hd_speed:.1e} s||')

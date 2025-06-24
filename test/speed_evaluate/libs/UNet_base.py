@@ -17,13 +17,15 @@ class downsample(nn.Module):
         self.padding = p
         self.pool = nn.AvgPool2d(2, 2)
         self.lrelu = nn.LeakyReLU(0.2, True)
+        # 对于channel,h,w进行归一化
+        self.norm = nn.GroupNorm(1, out_channels, affine=False)
         self.drop = nn.Dropout(drop_out) if drop_out>0 else nn.Identity()
 
     def forward(self, x, weight):
         pool_x = self.pool(x)
         lrelu_x = self.lrelu(pool_x)
         conv_x = manual_conv2d(lrelu_x, weight, stride=self.stride, padding=self.padding)
-        norm_x = (conv_x-conv_x.mean(dim=(1, 2, 3), keepdim=True))/(conv_x.std(dim=(1, 2, 3), keepdim=True) + 1e-5)
+        norm_x = self.norm(conv_x)
         drop_x = self.drop(norm_x)
         return drop_x
     
@@ -33,11 +35,12 @@ class upsample(nn.Module):
         self.stride = s
         self.padding = p
         self.relu = nn.ReLU(True)
-
+        self.norm = nn.GroupNorm(1, out_channels, affine=False)
+        
     def forward(self, x, weight):
         relu_x = self.relu(x)
         convt_x = manual_convtranspose2d(relu_x, weight, stride=self.stride, padding=self.padding)
-        norm_x = (convt_x-convt_x.mean(dim=(1, 2, 3), keepdim=True))/(convt_x.std(dim=(1, 2, 3), keepdim=True) + 1e-5)
+        norm_x = self.norm(convt_x)
         return norm_x
         
 class upsample_0(nn.Module):
@@ -93,13 +96,12 @@ class UNet(nn.Module):
     
     def forward(self, x):
         # 获取x.size(2)中2的因子数量
-        batch = int(x.size(0))
-        size =  int(x.size(2))
+        dim_size = x.size(2)
         layer_num = 0
-        while (1 << layer_num) < size:
+        while (1 << layer_num) < dim_size:
             layer_num += 1
-        layer_out: List[torch.Tensor] = [torch.empty((batch, 48, int(size/pow(2,i)), int(size/pow(2,i))),device=torch.device("cuda:0")) for i in range(layer_num+2)]
-
+        
+        layer_out: List[torch.Tensor] = [torch.tensor(0,device=torch.device("cuda:0"))] * (layer_num + 2)
         layer_out[0] = self.s0(x)
         for i in range(layer_num):
             layer_out[i+1] = self.s(layer_out[i], self.weight_s)

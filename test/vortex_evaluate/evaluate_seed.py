@@ -103,7 +103,11 @@ if __name__ == '__main__':
                     continue
 
                 spin_2305 = np.load(path0 + subpath + '/Spin_fft_converge.npy')
-
+                errormm = np.load(path0 + subpath + '/Dspin_fft_max.npy')
+                indexmm = np.where(errormm[1] < args.errorfilter)
+                if len(indexmm[0]) <= 0:
+                    print('\n',subpath, 'not converge')
+                    continue
                 bmodel = np.sum(np.abs(spin_2305)[:, :, :], axis=2)
                 model = np.zeros((bmodel.shape[0], bmodel.shape[1]))
                 model[np.where(bmodel > 0)] = 1
