@@ -12,11 +12,7 @@
 # Temporarily set PYTHONPATH to include the top-level directory
 export PYTHONPATH=$(dirname $(dirname $(pwd))):$PYTHONPATH
 
-<<<<<<< HEAD
 for width in 1024; do
-=======
-for width in 64 128 256 512 1024 2048 4096 8192; do
->>>>>>> ec01874 (profiling)
 
   # Define the log file path
 
